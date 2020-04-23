@@ -1,3 +1,35 @@
+## Component Hierarchy
+
+### Pages
+ - Load the weather for the current location (/current - default)
+ - Search box to the user which upon enter, or clicking on the search button will fire the API (/search)
+ 
+### Components
+
+ - WeatherDisplay Component (weather data and display) - Presentation Component
+ - Address Component (Show the address data based on google response) - Presentation
+ - Search Component (input box, search button) - Container
+ 
+### Data Modeling (FE
+
+ - search information (component level)
+ - address data (must be accessible to all components)
+ - location data (must be accessible to all components)
+ - weather data  (must be accessible to all components)
+ 
+### Data Owner
+
+ - App.js reducer / state - hooks 
+ - Context, Props (work here - small component)
+ 
+### UI Components
+
+ - Buttons, searchbox, spinner, (Blueprintjs) 
+ 
+### Refs:
+ - https://blueprintjs.com/docs/#blueprint/getting-started 
+ 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
