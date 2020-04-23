@@ -1,18 +1,11 @@
 import React from 'react';
-import {getFormattedAddress, getFormattedLongAddress} from "../utils/address-util";
-import {Icon} from "@blueprintjs/core";
+import {getFormattedAddress} from "../utils/address-util";
 
 const Address = ({address}) => {
     return (
-        <div>
-            <br/>
-            <Icon icon={'office'} />
-            <pre>{address && getFormattedAddress(address).split(',').map(x => x.trim()).join('\n')}</pre>
-            <br/>
-            <div>
-                {address && getFormattedLongAddress(address)}
-            </div>
-        </div>
+        <React.Fragment>
+            <span>{address && getFormattedAddress(address).split(',').map(x => x.trim()).join('\n')}</span>
+        </React.Fragment>
 
     );
 };

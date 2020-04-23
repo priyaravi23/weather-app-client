@@ -12,12 +12,24 @@ import {getGeolocationFromAddress} from "./utils/address-util";
 function App() {
 
     const [address, setAddress] = useState(null);
+    const [currenGeoLocation, setCurrenGeoLocation] = useState({});
     const [weather, setWeather] = useState(null);
     const [geolocation, setGeoLocation] = useState(null);
 
     // todo get geolocation
     useEffect(() => {
         // get and set the current geo location
+        (async () => {
+            const resa = await axios('http://ip-api.com/json');
+            const {lat, lon} = resa.data;
+            const resb = await axios(`http://localhost:3000/weather/dark-sky?lat=${lat}&lng=${lon}`);
+            const details = {
+                ...resa.data,
+                ...resb.data
+            };
+
+            setCurrenGeoLocation(details);
+        })();
     }, []);
 
     // Set the geolocation every time the address changes
@@ -41,12 +53,15 @@ function App() {
                 <Switch>
                     <Route path={'/search'}>
                         <Search setAddress={setAddress}/>
-                        <Address address={address}/>
-                        <Weather weatherData={weather} />
+                        {/*<Address address={address}/>*/}
+                        <Weather address={address}
+                                 weatherData={weather}
+                        />
                     </Route>
                     <Route path={'/'}>
-                        <div>Home Component</div>
-                        <Weather weatherData={weather} />
+                        <Weather current={currenGeoLocation}
+                                 address={address}
+                                 weatherData={weather} />
                     </Route>
                 </Switch>
             </div>
