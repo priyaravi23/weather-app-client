@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {Button, ControlGroup, InputGroup, Colors} from "@blueprintjs/core";
+import {Button, ControlGroup, InputGroup} from "@blueprintjs/core";
 import * as classes from './search.module.scss';
-import {showErrorToast, showSuccessToast} from "../utils/toasts";
+import {showErrorToast} from "../utils/toasts";
 
 const Search = ({setAddress}) => {
     const [input, setInput] = useState('2130 Wightman Street');
 
     const handleSearch = async () => {
         try {
-            const res = await axios(`http://localhost:3000/weather/places/?address=${input}`);
+            const res = await axios(`/weather/places/?address=${input}`);
             const data = res.data;
             setAddress(data.results[0]);
         } catch (ex) {

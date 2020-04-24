@@ -2,14 +2,21 @@ import React from 'react';
 import { Card, Elevation, Colors } from "@blueprintjs/core";
 import Address from './address';
 
-const Weather = ({weatherData, address, current}) => {
-    const currently = weatherData && weatherData.currently;
+const Weather = ({weatherData, address, details}) => {
+    const curr = weatherData && weatherData.currently;
     const timezone = weatherData && weatherData.timezone;
-    const icon = weatherData && currently.icon;
+    const icon = weatherData && curr.icon;
     const iconUrl = 'https://darksky.net/images/weather-icons';
 
-    const cur = current && current.currently;
-    console.log(cur);
+    const summary = details.currently && details.currently.summary;
+    const temperature = details.currently && details.currently.temperature;
+    const pressure = details.currently && details.currently.pressure;
+    const windSpeed = details.currently && details.currently.windSpeed;
+    const visibility = details.currently && details.currently.visibility;
+    const cloudCover = details.currently && details.currently.cloudCover;
+    const ozone = details.currently && details.currently.ozone;
+    const humidity = details.currently && details.currently.humidity;
+    const currentGeoIcon = details.currently && details.currently.icon;
 
     return (
         <div>
@@ -22,11 +29,18 @@ const Weather = ({weatherData, address, current}) => {
                     </div>
 
                     <div className='grid-info-item'>
-                        <Address address={address} />
+                        { details && !address
+                            ? (<code>
+                                {   `${details.city}
+                                    ${details.state_prov} ${details.zipcode}
+                                    ${details.country_code3}` }
+                                </code>)
+                            : <Address address={address} />
+                        }
                     </div>
 
                     <div className="grid-info-img-item">
-                        <img className='iconSeal' src={`${iconUrl}/${icon}.png`} />
+                        <img className='iconSeal' src={ details && !address ? `${iconUrl}/${currentGeoIcon}.png` : `${iconUrl}/${icon}.png`} />
                     </div>
 
                     <div className='grid-info-item'>
@@ -34,7 +48,8 @@ const Weather = ({weatherData, address, current}) => {
                     </div>
 
                     <div className='grid-info-item'>
-                        <p className="details">{timezone}</p>
+                        <p className="details">
+                            { details && !address ? details.timezone : timezone}</p>
                     </div>
 
                     <div className='grid-info-item'>
@@ -42,11 +57,9 @@ const Weather = ({weatherData, address, current}) => {
                     </div>
 
                     <div className='grid-info-item'>
-                        <p className="details">{weatherData && currently.temperature}
-                            <img
-                                src="https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_shape_oval-512.png"
-                                width="7" height='7' style={{marginTop: '-3%'}} />
-                            F
+                        <p className="details">
+                            { details && !address ? temperature : weatherData && curr.temperature}
+                             °F
                         </p>
                     </div>
 
@@ -55,7 +68,8 @@ const Weather = ({weatherData, address, current}) => {
                     </div>
 
                     <div className='grid-info-item'>
-                        <p className="details">{weatherData && currently.summary}</p>
+                        <p className="details">
+                            { details && !address ? summary : weatherData && curr.summary}</p>
                     </div>
                 </div>
 
@@ -100,23 +114,23 @@ const Weather = ({weatherData, address, current}) => {
                     </div>
 
                     <div className='grid-detail-item'>
-                        {weatherData && currently.humidity}
+                        { details && !address ? humidity : weatherData && curr.humidity}
                     </div>
 
                     <div className='grid-detail-item'>
-                        {weatherData && currently.pressure}
+                        { details && !address ? pressure : weatherData && curr.pressure}
                     </div>
                     <div className='grid-detail-item'>
-                        {weatherData && currently.windSpeed}
+                        { details && !address ? windSpeed : weatherData && curr.windSpeed}
                     </div>
                     <div className='grid-detail-item'>
-                        {weatherData && currently.visibility}
+                        { details && !address ? visibility : weatherData && curr.visibility}
                     </div>
                     <div className='grid-detail-item'>
-                        {weatherData && currently.cloudCover}
+                        { details && !address ? cloudCover : weatherData && curr.cloudCover}
                     </div>
                     <div className='grid-detail-item'>
-                        {weatherData && currently.ozone}
+                        { details && !address ? ozone : weatherData && curr.ozone}
                     </div>
                 </div>
             </Card>
