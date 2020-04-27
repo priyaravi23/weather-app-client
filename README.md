@@ -1,3 +1,7 @@
+## Weather Scanner
+
+![](public/weather-scanner.png)
+
 ## Component Hierarchy
 
 ### Pages

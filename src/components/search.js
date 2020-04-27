@@ -9,7 +9,7 @@ const Search = ({setAddress}) => {
 
     const handleSearch = async () => {
         try {
-            const res = await axios(`/weather/places/?address=${input}`);
+            const res = await axios(`http://localhost:3000/weather/places/?address=${input}`);
             const data = res.data;
             setAddress(data.results[0]);
         } catch (ex) {
